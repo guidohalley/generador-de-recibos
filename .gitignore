@@ -1,0 +1,16 @@
+# Node modules
+node_modules/
+
+# Archivos de entorno
+.env
+
+# Archivos de log
+npm-debug.log
+yarn-error.log
+
+# Sistemas de archivos específicos
+.DS_Store
+
+# Variables de entorno de Vercel o Railway
+.vercel/
+.railway/

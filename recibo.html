@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recibo de Pago</title>
+
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+      body {
+        background: linear-gradient(
+          3200deg,
+          rgb(52, 11, 80) 10%,
+          rgb(195, 20, 50) 50%,
+          rgb(243, 243, 243) 100%
+        );
+      }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6 bg-white shadow-lg rounded-lg mt-12">
+        <div class="header text-center mb-8">
+            <!-- Logo de la empresa -->
+            <img src="https://twodesigners.online/wp-content/uploads/2024/09/TD-LOGO.png" alt="twodesigners" class="mx-auto mb-4 max-w-xs">
+            <!-- Nombre de la empresa -->
+            <h1 class="text-4xl font-bold text-gray-800">twodesigners</h1>
+        </div>
+
+        <!-- Formulario de recibo -->
+        <form id="paymentForm">
+            <div class="details mb-6">
+                <label for="name" class="block text-lg font-semibold text-gray-700">Recibido de:</label>
+                <input type="text" id="name" name="name" required class="w-full p-3 mt-1 border rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500">
+                
+                <label for="email" class="block text-lg font-semibold text-gray-700 mt-4">Email del Cliente:</label>
+                <input type="email" id="email" name="email" required class="w-full p-3 mt-1 border rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500">
+                
+                <label for="address" class="block text-lg font-semibold text-gray-700 mt-4">Dirección:</label>
+                <input type="text" id="address" name="address" required class="w-full p-3 mt-1 border rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500">
+                
+                <label for="concept" class="block text-lg font-semibold text-gray-700 mt-4">Concepto:</label>
+                <input type="text" id="concept" name="concept" required class="w-full p-3 mt-1 border rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500">
+                
+                <label for="amount" class="block text-lg font-semibold text-gray-700 mt-4">Importe:</label>
+                <input type="text" id="amount" name="amount" required class="w-full p-3 mt-1 border rounded-md shadow-sm focus:ring-gray-500 focus:border-gray-500">
+            </div>
+            <button type="submit" class="w-full py-3 mt-4 bg-gray-600 text-white font-bold rounded-md hover:bg-gray-700 transition-colors">Enviar Recibo</button>
+        </form>
+        <!-- Footer -->
+        <hr class="my-6 border-gray-300" />
+        <div class="footer text-center text-sm text-gray-500">
+            <p>twodesigners.online - Todos los derechos reservados ©</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('paymentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const amount = document.getElementById('amount').value;
+
+            // Validación básica de importe
+            if (isNaN(amount) || amount <= 0) {
+                alert('Por favor, ingresa un importe válido');
+                return;
+            }
+
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                concept: document.getElementById('concept').value,
+                amount: amount,
+            };
+
+            fetch('http://127.0.0.1:3000/send-receipt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Recibo enviado correctamente');
+                } else {
+                    alert('Error al enviar el recibo');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
