@@ -14,3 +14,5 @@ yarn-error.log
 # Variables de entorno de Vercel o Railway
 .vercel/
 .railway/
+
+
