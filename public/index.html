@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twodesigners - Generador de Recibos</title>
+
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(
+                3200deg,
+                rgb(52, 11, 80) 10%,
+                rgb(195, 20, 50) 50%,
+                rgb(243, 243, 243) 100%
+            );
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto p-6 bg-white shadow-lg rounded-lg text-center">
+        <!-- Logo de la empresa -->
+        <img src="https://twodesigners.online/wp-content/uploads/2024/09/TD-LOGO.png" alt="twodesigners" class="mx-auto mb-4 max-w-xs">
+
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Bienvenido a Twodesigners</h1>
+        <p class="text-lg text-gray-600 mb-8">Estamos trabajando para ofrecerte la mejor experiencia de gestión de recibos.</p>
+
+        <!-- Botón para generar recibo -->
+        <a href="/recibo.html" class="inline-block px-6 py-3 bg-red-400 text-white font-semibold rounded-md hover:bg-blue-900 transition duration-300">
+            Generar Recibo
+        </a>
+    </div>
+
+</body>
+</html>
