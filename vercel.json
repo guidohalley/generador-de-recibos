@@ -1,7 +1,0 @@
-{
-    "version": 2,
-    "routes": [
-      { "src": "/send-receipt", "dest": "/api/index.js" }
-    ]
-  }
-  

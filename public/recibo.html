@@ -75,13 +75,14 @@
                 amount: amount,
             };
 
-            fetch('http://127.0.0.1:3000/send-receipt', {
+            fetch('/send-receipt', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             })
+            
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
