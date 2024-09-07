@@ -83,7 +83,6 @@ app.post("/send-receipt", (req, res) => {
   );
 });
 
-// Inicia el servidor en el puerto 3000
-app.listen(3000, () => {
-  console.log("Servidor iniciado en el puerto 3000");
-});
+// No agregues app.listen en Vercel
+
+module.exports = app; // Exporta la app para que Vercel la use
