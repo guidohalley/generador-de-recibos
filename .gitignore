@@ -3,7 +3,7 @@ node_modules/
 
 # Archivos de entorno
 .env
-
+Tree.md
 # Archivos de log
 npm-debug.log
 yarn-error.log

@@ -14,24 +14,31 @@ app.use(cors());
 // Middleware para analizar JSON
 app.use(bodyParser.json());
 
-// Servir archivos estáticos (HTML, imágenes, etc.)
-app.use(express.static(path.join(__dirname)));
+// Ruta para servir `index.html`
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
-// Configura Nodemailer
+// Ruta para servir `recibo.html`
+app.get("/recibo.html", (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'recibo.html'));
+});
+
+// Configura Nodemailer con variables de entorno
 let transporter = nodemailer.createTransport({
-  host: "smtp.hostinger.com",
-  port: 465,
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
   secure: true,
   auth: {
-    user: "pagosyrecibos@twodesigners.online", // Correo emisor
-    pass: "5UuG|pZ$", // Contraseña del correo
+    user: process.env.SMTP_USER, 
+    pass: process.env.SMTP_PASS, 
   },
 });
 
 // Ruta para manejar el envío del recibo
 app.post("/send-receipt", (req, res) => {
   const { name, email, address, concept, amount } = req.body;
-  
+
   console.log("Datos recibidos:", req.body); // Log para verificar datos recibidos
 
   // Lee el archivo HTML del template
@@ -61,7 +68,7 @@ app.post("/send-receipt", (req, res) => {
 
     // Opciones del correo
     let mailOptions = {
-      from: '"Twodesigners" <pagosyrecibos@twodesigners.online>', // Emisor del correo
+      from: `"Twodesigners" <${process.env.SMTP_USER}>`, // Emisor del correo usando la variable de entorno
       to: email, // Destinatario
       subject: `🪙 Hemos recibido tu pago, ${name}`, // Asunto personalizado
       html: htmlTemplate, // Plantilla HTML del correo
@@ -79,5 +86,10 @@ app.post("/send-receipt", (req, res) => {
   });
 });
 
-// No agregues app.listen en Vercel
-module.exports = app; // Exporta la app para que Vercel la maneje
+// Escucha en el puerto asignado por Vercel
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en el puerto ${PORT}`);
+});
+
+module.exports = app;
